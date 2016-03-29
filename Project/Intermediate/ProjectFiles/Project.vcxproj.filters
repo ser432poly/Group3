@@ -1,58 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<ItemGroup>
-		<None Include="..\..\Project.uproject" />
-		<Filter Include="Source">
-			<UniqueIdentifier>{0FAECF77-0CE0-4EB3-B499-045AE9D71C81}</UniqueIdentifier>
-		</Filter>
-		<None Include="..\..\Source\Project.Target.cs">
-			<Filter>Source</Filter>
-		</None >
-		<None Include="..\..\Source\ProjectEditor.Target.cs">
-			<Filter>Source</Filter>
-		</None >
-		<Filter Include="Config">
-			<UniqueIdentifier>{B6CD2F52-FDCE-4434-8D2D-D08CD240F3C3}</UniqueIdentifier>
-		</Filter>
-		<None Include="..\..\Config\DefaultEditor.ini">
-			<Filter>Config</Filter>
-		</None >
-		<None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
-			<Filter>Config</Filter>
-		</None >
-		<None Include="..\..\Config\DefaultEngine.ini">
-			<Filter>Config</Filter>
-		</None >
-		<None Include="..\..\Config\DefaultGame.ini">
-			<Filter>Config</Filter>
-		</None >
-		<None Include="..\..\Config\DefaultInput.ini">
-			<Filter>Config</Filter>
-		</None >
-		<Filter Include="Source\Project">
-			<UniqueIdentifier>{CEC0AAB9-CEB9-441F-874D-8D01576B8E2A}</UniqueIdentifier>
-		</Filter>
-		<None Include="..\..\Source\Project\Project.Build.cs">
-			<Filter>Source\Project</Filter>
-		</None >
-		<ClCompile Include="..\..\Source\Project\Project.cpp">
-			<Filter>Source\Project</Filter>
-		</ClCompile >
-		<ClInclude Include="..\..\Source\Project\Project.h">
-			<Filter>Source\Project</Filter>
-		</ClInclude >
-		<ClCompile Include="..\..\Source\Project\ProjectGameMode.cpp">
-			<Filter>Source\Project</Filter>
-		</ClCompile >
-		<ClInclude Include="..\..\Source\Project\ProjectGameMode.h">
-			<Filter>Source\Project</Filter>
-		</ClInclude >
-		<ClCompile Include="..\..\Source\Project\ProjectPawn.cpp">
-			<Filter>Source\Project</Filter>
-		</ClCompile >
-		<ClInclude Include="..\..\Source\Project\ProjectPawn.h">
-			<Filter>Source\Project</Filter>
-		</ClInclude >
-	</ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Project.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{96A3AA01-1E7E-483B-96CA-A6E37F472726}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Project.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\ProjectEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{EFE98AD7-E120-4B59-919F-F0E609A1AFD2}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\Project">
+      <UniqueIdentifier>{78CE162B-583A-4C09-9BD4-956302A190F5}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Project\Project.Build.cs">
+      <Filter>Source\Project</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\Project\Project.cpp">
+      <Filter>Source\Project</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Project\Project.h">
+      <Filter>Source\Project</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Project\ProjectGameMode.cpp">
+      <Filter>Source\Project</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Project\ProjectGameMode.h">
+      <Filter>Source\Project</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Project\ProjectPawn.cpp">
+      <Filter>Source\Project</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Project\ProjectPawn.h">
+      <Filter>Source\Project</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\Project\WeaponBase.h">
+      <Filter>Source\Project</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\Project\WeaponBase.cpp">
+      <Filter>Source\Project</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>
