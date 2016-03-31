@@ -31,10 +31,16 @@ public:
 	// End AActor overrides
 
 	UPROPERTY(Category = Weapon, EditAnywhere, BlueprintReadWrite)
-		AWeaponBase* PrimaryWeapon;
+	TSubclassOf<class AWeaponBase> WeaponSpawn;
 
 	UPROPERTY(Category = Weapon, EditAnywhere, BlueprintReadWrite)
-		AWeaponBase* SecondaryWeapon;
+	AWeaponBase* PrimaryWeapon;
+
+	UPROPERTY(Category = Weapon, EditAnywhere, BlueprintReadWrite)
+	AWeaponBase* SecondaryWeapon;
+
+	UFUNCTION(BlueprintCallable, Category = Event)
+	virtual void BeginPlay() override;
 
 protected:
 

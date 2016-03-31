@@ -16,6 +16,13 @@ AProjectPawn::AProjectPawn()
 	};
 	static FConstructorStatics ConstructorStatics;
 
+	static ConstructorHelpers::FObjectFinder<UBlueprint> WeaponBlueprint(TEXT("Blueprint'/Game/JustBusiness/Weapons/WeaponBase_BluePrint.WeaponBase_BluePrint'"));
+	WeaponSpawn = NULL;
+	if (WeaponBlueprint.Succeeded())
+	{
+		WeaponSpawn = (UClass *)WeaponBlueprint.Object->GeneratedClass;
+	}
+
 	// Create Blank Scene Component
 	USphereComponent* SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("RootComponent"));
 	RootComponent = SphereComponent;
@@ -45,6 +52,20 @@ AProjectPawn::AProjectPawn()
 	MaxSpeed = 4000.f;
 	MinSpeed = 500.f;
 	CurrentForwardSpeed = 500.f;
+}
+
+void AProjectPawn::BeginPlay()
+{
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.Owner = this;
+	SpawnParams.Instigator = Instigator;
+
+	AWeaponBase *Spawner = GetWorld()->SpawnActor<AWeaponBase>(WeaponSpawn, SpawnParams);
+	if (Spawner)
+	{
+		PrimaryWeapon = Spawner;
+		//PrimaryWeapon->SetOwningPawn(this);
+	}
 }
 
 void AProjectPawn::Tick(float DeltaSeconds)
