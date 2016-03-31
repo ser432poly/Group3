@@ -34,5 +34,31 @@ void AWeaponBase::Tick( float DeltaTime )
 
 void AWeaponBase::Fire()
 {
-	
+	if (currentAmmo > 0) {
+		//Fire Weapon
+
+		//Handle Ammo
+		UseAmmo();
+
+		
+	}
+	else {
+		//Reload
+	}
 }
+
+void AWeaponBase::UseAmmo()
+{
+	currentAmmo--;
+}
+
+
+void AWeaponBase::HandleFiring(){
+
+	//Aim direction
+
+	//Trace weapon impact
+
+	//Process hit
+}
+

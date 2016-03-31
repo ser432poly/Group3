@@ -26,8 +26,14 @@ public:
 	UPROPERTY(Category = Ammo, EditDefaultsOnly)
 	int32 maxAmmo;
 
+	UPROPERTY(Category = Ammo, EditDefaultsOnly)
+		int32 reloadTime;
+
 	UPROPERTY(Category = Configuration, EditDefaultsOnly)
 	float weaponSpread;
+
+	UPROPERTY(Category = Configuration, EditDefaultsOnly)
+		float fireSpeed;
 
 	UPROPERTY(Category = Configuration, EditDefaultsOnly)
 	float weaponRange;
@@ -37,5 +43,20 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Collision)
 	UStaticMeshComponent* meshComponent;
+
+protected:
+
+	void UseAmmo();
+
+
+private:
+	int32 currentAmmo;
+	float LastFireTime;
+	/* Time between shots for repeating fire */
+	float TimeBetweenShots;
+
+	virtual void HandleFiring();
+
+	virtual void UseAmmo();
 	
 };
