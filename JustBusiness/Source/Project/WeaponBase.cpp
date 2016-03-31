@@ -36,6 +36,7 @@ void AWeaponBase::Fire()
 {
 	if (currentAmmo > 0) {
 		//Fire Weapon
+		HandleFiring();
 
 		//Handle Ammo
 		UseAmmo();

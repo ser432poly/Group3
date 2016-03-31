@@ -36,6 +36,9 @@ public:
 		float fireSpeed;
 
 	UPROPERTY(Category = Configuration, EditDefaultsOnly)
+		int32 weaponDamage;
+
+	UPROPERTY(Category = Configuration, EditDefaultsOnly)
 	float weaponRange;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Collision)
@@ -48,7 +51,8 @@ protected:
 
 	void UseAmmo();
 
-
+	void DealDamage(const FHitResult& Impact, const FVector& ShootDir);
+	void ShouldDealDamage(AActor* TestActor) const;
 private:
 	int32 currentAmmo;
 	float LastFireTime;
@@ -57,6 +61,6 @@ private:
 
 	virtual void HandleFiring();
 
-	virtual void UseAmmo();
+
 	
 };
