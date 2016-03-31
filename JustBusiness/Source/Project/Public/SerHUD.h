@@ -3,6 +3,7 @@
 #include "GameFramework/HUD.h"
 #include "SerHUD.generated.h"
 
+
 UENUM(BlueprintType)
 enum class SerHUDState : uint8
 {
@@ -12,7 +13,7 @@ enum class SerHUDState : uint8
 };
 
 /**
- * 
+ *
  */
 UCLASS()
 class PROJECT_API ASerHUD : public AHUD
@@ -21,10 +22,17 @@ class PROJECT_API ASerHUD : public AHUD
 
 		ASerHUD(const FObjectInitializer& ObjectInitializer);
 
-		SerHUDState CurrentState;
-	
-		/** update loop */
-		virtual void DrawHUD() override;
+
+
+	//FCanvasIcon Reticle;
+
+	SerHUDState CurrentState;
+
+
+	/** update loop */
+	virtual void DrawHUD() override;
+
+	void DrawReticle();
 
 
 public:
@@ -32,11 +40,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "HUD")
 		SerHUDState GetCurrentState();
 
-
+	/* Event to call HUD text events to display in the HUD. Blueprint HUD class must implement how to deal with this event. */
 	UFUNCTION(BlueprintImplementableEvent, Category = "HUDEvents")
 		void MessageReceived(const FText& TextMessage);
 
-
+	/* Event to update HUD state  */
 	UFUNCTION(BlueprintNativeEvent, Category = "HUDEvents")
 		void OnStateChanged(SerHUDState NewState);
 };
