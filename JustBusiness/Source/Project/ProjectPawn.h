@@ -4,6 +4,8 @@
 #include "WeaponBase.h"
 #include "ProjectPawn.generated.h"
 
+// Forward Declaration
+class AWeaponBase;
 
 UCLASS(config=Game)
 class AProjectPawn : public APawn

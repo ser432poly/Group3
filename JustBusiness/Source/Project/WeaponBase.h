@@ -3,7 +3,11 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
+#include "ProjectPawn.h"
 #include "WeaponBase.generated.h"
+
+// Forward Declaration
+class AProjectPawn;
 
 #define TRACE_WEAPON ECC_GameTraceChannel1
 
@@ -82,22 +86,19 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Weapon)
 	virtual void ProjectileFire();
 
-	UPROPERTY(Category = Ammo, EditDefaultsOnly)
-			int
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Config)
 	FWeaponData WeaponConfig;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Config)
 	TEnumAsByte<EWeaponProjectile::ProjectileType> ProjectileType;
 
-	UPROPERTY(Category = Configuration, EditDefaultsOnly)
-
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Collision)
 	UBoxComponent* CollisionComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Collision)
 	UStaticMeshComponent* MeshComponent;
+
+	void SetOwningPawn(AProjectPawn *NewOwner);
 	
 protected:
 
@@ -107,26 +108,17 @@ protected:
 
 	void DealDamage(const FHitResult& Impact, const FVector& ShootDir);
 	void ShouldDealDamage(AActor* TestActor) const;
+
 private:
+
 	int32 currentAmmo;
 	float LastFireTime;
 	/* Time between shots for repeating fire */
 	float TimeBetweenShots;
 
-	virtual void HandleFiring();
-
-
-	void DealDamage(const FHitResult& Impact, const FVector& ShootDir);
-	void ShouldDealDamage(AActor* TestActor) const;
-private:
-	int32 currentAmmo;
-	float LastFireTime;
-	/* Time between shots for repeating fire */
-	float TimeBetweenShots;
+	AProjectPawn *MyPawn;
 
 	virtual void HandleFiring();
-
-
 
 	void ProcessInstantHit(const FHitResult &Impact, const FVector &Origin, const FVector &ShootDirection, int32 RandomSeed, float ReticleSpread);
 };

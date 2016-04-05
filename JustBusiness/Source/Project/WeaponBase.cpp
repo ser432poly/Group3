@@ -25,6 +25,16 @@ void AWeaponBase::BeginPlay()
 	
 }
 
+void AWeaponBase::SetOwningPawn(AProjectPawn * NewOwner)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "SetOwningPawn() Called");
+	if (MyPawn != NewOwner)
+	{
+		Instigator = NewOwner;
+		MyPawn = NewOwner;
+	}
+}
+
 // Called every frame
 void AWeaponBase::Tick( float DeltaTime )
 {
@@ -35,23 +45,35 @@ void AWeaponBase::Tick( float DeltaTime )
 void AWeaponBase::Fire()
 {
 	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "Fire() Called");
-	//Instant_Fire();
+	Instant_Fire();
 }
 
 void AWeaponBase::Instant_Fire()
 {
+	if (MyPawn != nullptr)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "Instant_Fire() 2");
+		const int32 RandomSeed = FMath::Rand();
+		FRandomStream WeaponRandomStream(RandomSeed);
 
-	const int32 RandomSeed = FMath::Rand();
-	FRandomStream WeaponRandomStream(RandomSeed);
-	const float CurrentSpread = WeaponConfig.WeaponSpread;
-	const float SpreadCone = FMath::DegreesToRadians(WeaponConfig.WeaponSpread * 0.5);
-	const FVector AimDir = MeshComponent->GetSocketRotation("MF").Vector();
-	const FVector StartTrace = MeshComponent->GetSocketLocation("MF");
-	const FVector ShootDir = WeaponRandomStream.VRandCone(AimDir, SpreadCone, SpreadCone);
-	const FVector EndTrace = StartTrace + ShootDir * WeaponConfig.WeaponRange;
-	const FHitResult Impact = WeaponTrace(StartTrace, EndTrace);
+		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "Instant_Fire() 3");
+		const float CurrentSpread = WeaponConfig.WeaponSpread;
+		const float SpreadCone = FMath::DegreesToRadians(WeaponConfig.WeaponSpread * 0.5);
 
-	ProcessInstantHit(Impact, StartTrace, ShootDir, RandomSeed, CurrentSpread);
+		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "Instant_Fire() 4");
+		UStaticMeshComponent* mesh = MyPawn->GetPlaneMesh();
+		if (mesh != nullptr) {
+			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "Instant_Fire() 5");
+			const FVector AimDir = mesh->GetSocketRotation("WeaponSocket").Vector();
+			const FVector StartTrace = mesh->GetSocketLocation("WeaponSocket");
+			const FVector ShootDir = WeaponRandomStream.VRandCone(AimDir, SpreadCone, SpreadCone);
+			const FVector EndTrace = StartTrace + ShootDir * WeaponConfig.WeaponRange;
+			const FHitResult Impact = WeaponTrace(StartTrace, EndTrace);
+
+			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "Instant_Fire() 6");
+			//ProcessInstantHit(Impact, StartTrace, ShootDir, RandomSeed, CurrentSpread);
+		}
+	}
 }
 
 void AWeaponBase::ProjectileFire()
@@ -79,10 +101,13 @@ void AWeaponBase::ProcessInstantHit(const FHitResult &Impact, const FVector &Ori
 	const FVector EndTrace = Origin + ShootDirection * WeaponConfig.WeaponRange;
 	const FVector EndPoint = Impact.GetActor() ? Impact.ImpactPoint : EndTrace;
 	DrawDebugLine(this->GetWorld(), Origin, Impact.TraceEnd, FColor::Red, true, 10000, 10.f);
-	}
-	else {
-		//Reload
-	}
+	//if (1)
+	//{
+	//}
+	//else 
+	//{
+	//	//Reload
+	//}
 }
 
 void AWeaponBase::UseAmmo()

@@ -63,8 +63,9 @@ void AProjectPawn::BeginPlay()
 	AWeaponBase *Spawner = GetWorld()->SpawnActor<AWeaponBase>(WeaponSpawn, SpawnParams);
 	if (Spawner)
 	{
+		Spawner->AttachRootComponentTo(PlaneMesh, "WeaponSocket", EAttachLocation::SnapToTarget);
 		PrimaryWeapon = Spawner;
-		//PrimaryWeapon->SetOwningPawn(this);
+		PrimaryWeapon->SetOwningPawn(this);
 	}
 }
 
