@@ -39,8 +39,25 @@ public:
 	UPROPERTY(Category = Weapon, EditAnywhere, BlueprintReadWrite)
 	AWeaponBase* SecondaryWeapon;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Condition", BlueprintReadWrite)
+	float Health;
+
 	UFUNCTION(BlueprintCallable, Category = Event)
 	virtual void BeginPlay() override;
+
+	/** Returns the Current Health */
+	UFUNCTION(BlueprintCallable, Category = "Condition")
+	float GetHealth() const;
+
+	/** Returns the Max Health */
+	UFUNCTION(BlueprintCallable, Category = "Condition")
+	float GetMaxHealth() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Condition")
+	bool IsAlive() const;
+
+	/* Take damage & handle death */
+	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser) override;
 
 protected:
 

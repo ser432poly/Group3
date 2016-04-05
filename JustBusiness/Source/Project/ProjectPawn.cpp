@@ -52,6 +52,9 @@ AProjectPawn::AProjectPawn()
 	MaxSpeed = 4000.f;
 	MinSpeed = 500.f;
 	CurrentForwardSpeed = 500.f;
+
+	// Set Default Player Condition Variables
+	Health = 100.f;
 }
 
 void AProjectPawn::BeginPlay()
@@ -156,4 +159,47 @@ void AProjectPawn::MoveRightInput(float Val)
 	// Smoothly interpolate roll speed
 	CurrentRollSpeed = FMath::FInterpTo(CurrentRollSpeed, TargetRollSpeed, GetWorld()->GetDeltaSeconds(), 2.f);
 	*/
+}
+
+float AProjectPawn::GetHealth() const
+{
+	return Health;
+}
+
+float AProjectPawn::GetMaxHealth() const
+{
+	// Retrieve the default value of the health property that is assigned on instantiation.
+	return GetClass()->GetDefaultObject<AProjectPawn>()->Health;
+}
+
+bool AProjectPawn::IsAlive() const
+{
+	return Health > 0;
+}
+
+
+float AProjectPawn::TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser)
+{
+	if (Health <= 0.f)
+	{
+		return 0.f;
+	}
+
+	const float ActualDamage = Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
+	if (ActualDamage > 0.f)
+	{
+		Health -= ActualDamage;
+		if (Health <= 0)
+		{
+			// TODO: Handle death
+			//Die(ActualDamage, DamageEvent, EventInstigator, DamageCauser);
+		}
+		else
+		{
+			// TODO: Play hit
+			//PlayHit(ActualDamage, DamageEvent, EventInstigator->GetPawn(), DamageCauser, false);
+		}
+	}
+
+	return ActualDamage;
 }
