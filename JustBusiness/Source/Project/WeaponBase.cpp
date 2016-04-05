@@ -79,10 +79,6 @@ void AWeaponBase::ProcessInstantHit(const FHitResult &Impact, const FVector &Ori
 	const FVector EndTrace = Origin + ShootDirection * WeaponConfig.WeaponRange;
 	const FVector EndPoint = Impact.GetActor() ? Impact.ImpactPoint : EndTrace;
 	DrawDebugLine(this->GetWorld(), Origin, Impact.TraceEnd, FColor::Red, true, 10000, 10.f);
-	}
-	else {
-		//Reload
-	}
 }
 
 void AWeaponBase::UseAmmo()

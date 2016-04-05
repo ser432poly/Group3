@@ -82,16 +82,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Weapon)
 	virtual void ProjectileFire();
 
-	UPROPERTY(Category = Ammo, EditDefaultsOnly)
-			int
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Config)
 	FWeaponData WeaponConfig;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Config)
 	TEnumAsByte<EWeaponProjectile::ProjectileType> ProjectileType;
-
-	UPROPERTY(Category = Configuration, EditDefaultsOnly)
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Collision)
 	UBoxComponent* CollisionComponent;
@@ -114,19 +109,6 @@ private:
 	float TimeBetweenShots;
 
 	virtual void HandleFiring();
-
-
-	void DealDamage(const FHitResult& Impact, const FVector& ShootDir);
-	void ShouldDealDamage(AActor* TestActor) const;
-private:
-	int32 currentAmmo;
-	float LastFireTime;
-	/* Time between shots for repeating fire */
-	float TimeBetweenShots;
-
-	virtual void HandleFiring();
-
-
 
 	void ProcessInstantHit(const FHitResult &Impact, const FVector &Origin, const FVector &ShootDirection, int32 RandomSeed, float ReticleSpread);
 };
