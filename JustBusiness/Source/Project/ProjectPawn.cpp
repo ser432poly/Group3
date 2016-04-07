@@ -172,6 +172,25 @@ float AProjectPawn::GetMaxHealth() const
 	return GetClass()->GetDefaultObject<AProjectPawn>()->Health;
 }
 
+
+int32 AProjectPawn::GetCurrency()
+{
+	return Currency;
+}
+
+
+int32 AProjectPawn::ReduceCurrency(int32 amount)
+{
+	Currency = Currency - amount;
+	return Currency;
+}
+
+int32 AProjectPawn::IncreaseCurrency(int32 amount)
+{
+	Currency = Currency - amount;
+	return Currency;
+}
+
 bool AProjectPawn::IsAlive() const
 {
 	return Health > 0;

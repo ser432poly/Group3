@@ -42,12 +42,27 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Condition", BlueprintReadWrite)
 	float Health;
 
+
+
+
+
+
+
 	UFUNCTION(BlueprintCallable, Category = Event)
 	virtual void BeginPlay() override;
 
 	/** Returns the Current Health */
 	UFUNCTION(BlueprintCallable, Category = "Condition")
 	float GetHealth() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Condition")
+	int32 GetCurrency();
+
+	UFUNCTION(BlueprintCallable, Category = "Condition")
+		int32 ReduceCurrency(int32 amount);
+
+	UFUNCTION(BlueprintCallable, Category = "Condition")
+		int32 IncreaseCurrency(int32 amount);
 
 	/** Returns the Max Health */
 	UFUNCTION(BlueprintCallable, Category = "Condition")
@@ -60,6 +75,9 @@ public:
 	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser) override;
 
 protected:
+
+
+		int32 Currency;
 
 	// Begin APawn overrides
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override; // Allows binding actions/axes to functions
