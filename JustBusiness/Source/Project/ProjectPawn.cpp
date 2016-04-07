@@ -199,6 +199,8 @@ bool AProjectPawn::IsAlive() const
 
 float AProjectPawn::TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser)
 {
+	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "TakeDamage() Called");
+
 	if (Health <= 0.f)
 	{
 		return 0.f;

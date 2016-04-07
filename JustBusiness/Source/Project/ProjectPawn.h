@@ -72,6 +72,7 @@ public:
 	bool IsAlive() const;
 
 	/* Take damage & handle death */
+	UFUNCTION(BlueprintCallable, Category = "Condition")
 	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser) override;
 
 protected:
