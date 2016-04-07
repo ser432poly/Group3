@@ -28,3 +28,9 @@ AProjectGameMode::AProjectGameMode()
 	}
 
 }
+
+void AProjectGameMode::Killed(AController* Killer, AController* VictimPlayer, APawn* VictimPawn, const UDamageType* DamageType)
+{
+	// Used to keep score
+}
+

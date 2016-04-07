@@ -10,6 +10,8 @@ class AProjectGameMode : public AGameMode
 
 public:
 	AProjectGameMode();
+
+	virtual void Killed(AController* Killer, AController* VictimPlayer, APawn* VictimPawn, const UDamageType* DamageType);
 };
 
 

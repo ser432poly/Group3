@@ -2,6 +2,7 @@
 
 #include "Project.h"
 #include "ProjectPawn.h"
+#include "ProjectGameMode.h"
 
 AProjectPawn::AProjectPawn()
 {
@@ -199,8 +200,6 @@ bool AProjectPawn::IsAlive() const
 
 float AProjectPawn::TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "TakeDamage() Called");
-
 	if (Health <= 0.f)
 	{
 		return 0.f;
@@ -212,15 +211,46 @@ float AProjectPawn::TakeDamage(float Damage, struct FDamageEvent const& DamageEv
 		Health -= ActualDamage;
 		if (Health <= 0)
 		{
-			// TODO: Handle death
-			//Die(ActualDamage, DamageEvent, EventInstigator, DamageCauser);
+			Die(ActualDamage, DamageEvent, EventInstigator, DamageCauser);
 		}
 		else
 		{
-			// TODO: Play hit
-			//PlayHit(ActualDamage, DamageEvent, EventInstigator->GetPawn(), DamageCauser, false);
+			PlayHit(ActualDamage, DamageEvent, EventInstigator->GetPawn(), DamageCauser, false);
 		}
 	}
 
 	return ActualDamage;
+}
+
+
+bool AProjectPawn::Die(float KillingDamage, FDamageEvent const& DamageEvent, AController* Killer, AActor* DamageCauser)
+{
+	Health = FMath::Min(0.0f, Health);
+
+	/* Fallback to default DamageType if none is specified */
+	UDamageType const* const DamageType = DamageEvent.DamageTypeClass ? DamageEvent.DamageTypeClass->GetDefaultObject<UDamageType>() : GetDefault<UDamageType>();
+	Killer = GetDamageInstigator(Killer, *DamageType);
+
+	/* Notify the gamemode we got killed for scoring and game over state */
+	AController* KilledPlayer = Controller ? Controller : Cast<AController>(GetOwner());
+	GetWorld()->GetAuthGameMode<AProjectGameMode>()->Killed(Killer, KilledPlayer, this, DamageType);
+
+	OnDeath(KillingDamage, DamageEvent, Killer ? Killer->GetPawn() : NULL, DamageCauser);
+	return true;
+}
+
+void AProjectPawn::OnDeath(float KillingDamage, FDamageEvent const& DamageEvent, APawn* PawnInstigator, AActor* DamageCauser)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "AProjectPawn::OnDeath() Called");
+
+	// Used for handling the pawn's death
+
+	// Respawn the Player 
+}
+
+void AProjectPawn::PlayHit(float DamageTaken, struct FDamageEvent const& DamageEvent, APawn* PawnInstigator, AActor* DamageCauser, bool bKilled)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "AProjectPawn::PlayHit() Called");
+
+	// Used to handle the pawn taking damage
 }

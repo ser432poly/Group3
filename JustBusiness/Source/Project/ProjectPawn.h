@@ -42,12 +42,6 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Condition", BlueprintReadWrite)
 	float Health;
 
-
-
-
-
-
-
 	UFUNCTION(BlueprintCallable, Category = Event)
 	virtual void BeginPlay() override;
 
@@ -72,8 +66,13 @@ public:
 	bool IsAlive() const;
 
 	/* Take damage & handle death */
-	UFUNCTION(BlueprintCallable, Category = "Condition")
 	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser) override;
+
+	virtual bool Die(float KillingDamage, FDamageEvent const& DamageEvent, AController* Killer, AActor* DamageCauser);
+
+	virtual void OnDeath(float KillingDamage, FDamageEvent const& DamageEvent, APawn* PawnInstigator, AActor* DamageCauser);
+
+	virtual void PlayHit(float DamageTaken, struct FDamageEvent const& DamageEvent, APawn* PawnInstigator, AActor* DamageCauser, bool bKilled);
 
 protected:
 
